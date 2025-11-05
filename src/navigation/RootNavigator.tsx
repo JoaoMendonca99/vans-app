@@ -1,13 +1,12 @@
-// src/navigation/RootNavigator.tsx
 import React from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ActivityIndicator, View } from 'react-native';
 
 import { useAuth } from '../hooks/useAuth';
 import { RootStackParamList } from '../utils/types';
 
 import AuthStack from './stacks/AuthStack';
-import AdminStack from './stacks/AdminStack';     // ✅ FALTAVA ESTE IMPORT
+import AdminStack from './stacks/AdminStack';
 import DriverTabs from './tabs/DriverTabs';
 import GuardianTabs from './tabs/GuardianTabs';
 import StudentTabs from './tabs/StudentTabs';
@@ -16,6 +15,33 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   const { role, isLoading } = useAuth();
+
+  // determina a tela SEM hooks
+  let screenName: keyof RootStackParamList;
+  let component: React.ComponentType<any>;
+
+  switch (role) {
+    case 'ADM':
+      screenName = 'AdminStack';
+      component = AdminStack;
+      break;
+    case 'DRIVER':
+      screenName = 'DriverTabs';
+      component = DriverTabs;
+      break;
+    case 'GUARDIAN':
+      screenName = 'GuardianTabs';
+      component = GuardianTabs;
+      break;
+    case 'STUDENT':
+      screenName = 'StudentTabs';
+      component = StudentTabs;
+      break;
+    default:
+      screenName = 'AuthStack';
+      component = AuthStack;
+      break;
+  }
 
   if (isLoading) {
     return (
@@ -27,17 +53,7 @@ const RootNavigator = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {role === 'ADM' ? (
-        <Stack.Screen name="AdminStack" component={AdminStack} />
-      ) : role === 'DRIVER' ? (
-        <Stack.Screen name="DriverTabs" component={DriverTabs} />
-      ) : role === 'GUARDIAN' ? (
-        <Stack.Screen name="GuardianTabs" component={GuardianTabs} />
-      ) : role === 'STUDENT' ? (
-        <Stack.Screen name="StudentTabs" component={StudentTabs} />
-      ) : (
-        <Stack.Screen name="AuthStack" component={AuthStack} />
-      )}
+      <Stack.Screen name={screenName} component={component} />
     </Stack.Navigator>
   );
 };

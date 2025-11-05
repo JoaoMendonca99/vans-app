@@ -1,25 +1,22 @@
-// App.tsx
-import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { PaperProvider } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
-import { AuthProvider } from './src/hooks/useAuth';  // ✅ caminho correto
+import { AuthProvider } from './src/hooks/useAuth.tsx';
 import { theme } from './src/theme/theme';
 
 export default function App() {
   return (
-    <PaperProvider theme={theme}>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
+      <PaperProvider theme={theme}>
         <AuthProvider>
           <NavigationContainer>
             <RootNavigator />
+            <StatusBar style="auto" />
           </NavigationContainer>
-          <StatusBar style="auto" />
         </AuthProvider>
-      </SafeAreaProvider>
-    </PaperProvider>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
