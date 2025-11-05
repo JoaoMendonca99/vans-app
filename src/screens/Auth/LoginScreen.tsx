@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { tw } from 'nativewind';
+
 
 const loginSchema = z.object({
   email: z.string().email('E-mail inválido'),
@@ -43,16 +43,16 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={tw('flex-1 justify-center items-center bg-gray-900')}>
-      <View style={tw('w-4/5 p-6 bg-white rounded-lg shadow-xl')}>
-        <Text style={tw('text-3xl font-bold text-center text-gray-800 mb-8')}>Vans ExpoGo</Text>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1f2937' }}>
+      <View style={{ width: '80%', padding: 24, backgroundColor: 'white', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 6, elevation: 8 }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', color: '#1f2937', marginBottom: 32 }}>Vans ExpoGo</Text>
 
         <Controller
           control={control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              style={tw('border border-gray-300 p-3 rounded-lg mb-2')}
+              style={{ borderWidth: 1, borderColor: '#d1d5db', padding: 12, borderRadius: 8, marginBottom: 8 }}
               placeholder="E-mail"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -62,14 +62,14 @@ const LoginScreen = () => {
             />
           )}
         />
-        {errors.email && <Text style={tw('text-red-500 mb-2')}>{errors.email.message}</Text>}
+        {errors.email && <Text style={{ color: '#ef4444', marginBottom: 8 }}>{errors.email.message}</Text>}
 
         <Controller
           control={control}
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              style={tw('border border-gray-300 p-3 rounded-lg mb-4')}
+              style={{ borderWidth: 1, borderColor: '#d1d5db', padding: 12, borderRadius: 8, marginBottom: 16 }}
               placeholder="Senha"
               onBlur={onBlur}
               onChangeText={onChange}
@@ -78,22 +78,22 @@ const LoginScreen = () => {
             />
           )}
         />
-        {errors.password && <Text style={tw('text-red-500 mb-4')}>{errors.password.message}</Text>}
+        {errors.password && <Text style={{ color: '#ef4444', marginBottom: 16 }}>{errors.password.message}</Text>}
 
         <Button
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           loading={loading}
           disabled={loading}
-          style={tw('mt-4')}
+          style={{ marginTop: 16 }}
         >
           {loading ? 'Entrando...' : 'Entrar'}
         </Button>
-        {loading && <ActivityIndicator style={tw('mt-4')} size="small" />}
+        {loading && <ActivityIndicator style={{ marginTop: 16 }} size="small" />}
 
-        <Text style={tw('text-center text-gray-600 mt-6')}>
+        <Text style={{ textAlign: 'center', color: '#4b5563', marginTop: 24 }}>
           Não tem conta?{' '}
-          <Text style={tw('text-blue-500 font-bold')} onPress={() => console.log('Navegar para Registro')}>
+          <Text style={{ color: '#3b82f6', fontWeight: 'bold' }} onPress={() => console.log('Navegar para Registro')}>
             Registre-se
           </Text>
         </Text>

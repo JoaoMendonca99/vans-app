@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import MapView from 'react-native-maps';
-import { tw } from 'nativewind';
+
 
 const ETAViewScreen = () => {
   return (
-    <View style={tw('flex-1')}>
-      <Text style={tw('p-4 text-center bg-blue-100')}>
+    <View style={{ flex: 1 }}>
+      <Text style={{ padding: 16, textAlign: 'center', backgroundColor: '#dbeafe' }}>
         Visualização da posição da van e ETA (Tempo Estimado de Chegada).
       </Text>
       <MapView
-        style={tw('flex-1')}
+        style={{ flex: 1 }}
         initialRegion={{
           latitude: -23.55052, // São Paulo
           longitude: -46.633308,
@@ -18,7 +18,7 @@ const ETAViewScreen = () => {
           longitudeDelta: 0.0421,
         }}
       />
-      <Text style={tw('p-4 text-center bg-gray-200')}>
+      <Text style={{ padding: 16, textAlign: 'center', backgroundColor: '#e5e7eb' }}>
         ETA: 15 minutos (Mock)
       </Text>
     </View>

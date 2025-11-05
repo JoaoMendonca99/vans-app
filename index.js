@@ -1,3 +1,5 @@
+// index.js
+import 'react-native-gesture-handler'; // ✅ importante p/ navegação funcionar sem crashes
 import { registerRootComponent } from 'expo';
 import App from './App';
 
